@@ -1,1 +1,26 @@
-
+server:
+  port: 5001
+spring:
+  datasource:
+    url: jdbc:postgres://localhost:3306/officium?createDatabaseIfNotExist=true
+    username: admin
+    password: admin
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL82Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+      bootstrap-servers: localhost:9092
+      group-id: bankAccountConsumer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    listener:
+      ack-mode: manual_immediate
