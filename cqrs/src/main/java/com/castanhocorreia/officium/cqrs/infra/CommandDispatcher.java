@@ -5,4 +5,6 @@ import com.castanhocorreia.officium.cqrs.command.CommandHandler;
 
 public interface CommandDispatcher {
   <T extends BaseCommand> void registerHandler(Class<T> type, CommandHandler<T> handler);
+
+  void send(BaseCommand command);
 }
